@@ -1,6 +1,6 @@
 {
   "name": "dalle-node",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Use DallE with Nodejs",
   "main": "dalle-node.js",
   "scripts": {
@@ -12,5 +12,24 @@
   "dependencies": {
     "request": "^2.88.2"
   },
+  "keywords": [
+    "dalle",
+    "nodejs",
+    "node",
+    "dalle-node",
+    "dalle-nodejs",
+    "dalle-node-js",
+    "dall-e",
+    "openai",
+    "ai",
+    "deep learning",
+    "openai-api",
+    "openai-api-js",
+    "dalle-api",
+    "dall-e-api",
+    "gpt-3",
+    "gpt3",
+    "api"
+  ],
   "homepage": "https://github.com/ezzcodeezzlife/dalle-node"
 }
