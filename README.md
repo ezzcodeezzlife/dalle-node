@@ -54,5 +54,4 @@ console.log(generations)
 ```
 
 Example [Nextjs Application](https://github.com/1998code/DALLE-2-App)
-Blog: [openai.com/blog/dall-e/](https://openai.com/blog/dall-e/)
 
