@@ -42,12 +42,13 @@ export class Dalle {
                     (error, response, body) => {
                       if (error) {
                         console.log(error);
-                      } else {
-                        if (body.status === "succeeded") {
-                          const generations = body.generations;
-                          clearInterval(refreshIntervalId);
-                          resolve(generations.data);
-                        }
+                      } else if (body.status === "rejected") {
+                        clearInterval(refreshIntervalId);
+                        resolve(body.status_information);
+                      } else if (body.status === "succeeded") {
+                        const generations = body.generations;
+                        clearInterval(refreshIntervalId);
+                        resolve(generations.data);
                       }
                     }
                   );
