@@ -1,6 +1,6 @@
 {
   "name": "dalle-node",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Use DallE with Nodejs",
   "main": "dalle-node.js",
   "scripts": {
