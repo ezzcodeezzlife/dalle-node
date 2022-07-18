@@ -19,7 +19,7 @@ export class Dalle {
             task_type: "text2im",
             prompt: {
               caption: promt,
-              batch_size: 6,
+              batch_size: 4,
             },
           },
         },

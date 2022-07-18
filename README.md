@@ -49,7 +49,7 @@ console.log(generations)
     prompt_id: 'prompt-2CtaLasdUbJHHfoJQy9Lul3T',
     is_public: false
   },
-  // 4 more ... 
+  // 2 more ... 
 ]
 ```
 
