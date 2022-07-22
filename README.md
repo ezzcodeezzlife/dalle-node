@@ -55,4 +55,4 @@ console.log(generations)
 
 Example [Nextjs Application](https://github.com/1998code/DALLE-2-App)
 
-[Repo for the same thing as Python Package](https://github.com/ezzcodeezzlife/dalle2-in-python)
+[Repo for the same thing as Python Package "ezzcodeezzlife/dalle2-in-python"](https://github.com/ezzcodeezzlife/dalle2-in-python)
