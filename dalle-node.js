@@ -6,12 +6,12 @@ export class Dalle {
     this.url = "https://labs.openai.com/api/labs/tasks";
   }
 
-  async generate(promt) {
-    const task = await got.post(this.url, {
+  async generate(prompt) {
+    let task = await got.post(this.url, {
       json: {
         task_type: "text2im",
         prompt: {
-          caption: promt,
+          caption: prompt,
           batch_size: 4,
         },
       },
@@ -20,22 +20,21 @@ export class Dalle {
       }
     }).json();
 
-    const refreshIntervalId = await setInterval(() => {
-      this.getTask(task.id).then(updatedTask => {
-        switch (updatedTask.status) {
+    return await new Promise(resolve => {
+      const refreshIntervalId = setInterval(async () => {
+        task = await this.getTask(task.id)
+
+        switch (task.status) {
           case "succeeded":
             clearInterval(refreshIntervalId);
-            return updatedTask.generations
+            return resolve(task.generations)
           case "rejected":
             clearInterval(refreshIntervalId);
-            return updatedTask.status_information;
+            throw new Error(task);
           case "pending":
         }
-      }).catch(error => {
-        console.log(error);
-        return error;
-      })
-    }, 2000);
+      }, 2000);
+    })
   }
 
   async getTask(taskId) {
@@ -46,50 +45,11 @@ export class Dalle {
     }).json();
   }
   
-  async list({ limit = 50, fromTs = 0 }) {
-    return new Promise((resolve, reject) => {
-      request.get(
-        {
-          url: `${ this.url }?limit=${ limit }${ fromTs ? `&from_ts=${ fromTs }` : '' }`,
-          headers: {
-            Authorization: "Bearer " + this.bearerToken,
-          },
-          json: true,
+  async list(options = { limit: 50, fromTs: 0 }) {
+    return await got.get(`${ this.url }?limit=${ options.limit }${ options.fromTs ? `&from_ts=${ options.fromTs }` : '' }`, {
+        headers: {
+          Authorization: "Bearer " + this.bearerToken,
         },
-        (error, response, body) => {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log(response.statusCode, body);
-            const taskId = body.id;
-
-            const refreshIntervalId = setInterval(() => {
-                request.get(
-                    {
-                      url: this.url + '/' + taskId,
-                      headers: {
-                        Authorization: "Bearer " + this.bearerToken,
-                      },
-                      json: true,
-                    },
-                    (error, response, body) => {
-                      if (error) {
-                        console.log(error);
-                      } else if (body.status === "rejected") {
-                        clearInterval(refreshIntervalId);
-                        resolve(body.status_information);
-                      } else if (body.status === "succeeded") {
-                        const runs = body.data;
-                        clearInterval(refreshIntervalId);
-                        resolve(runs.body);
-                      }
-                    }
-                  );
-
-            }, 3000);
-          }
-        }
-      );
-    });
+      }).json();
   }
 }
