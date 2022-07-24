@@ -8,8 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "type":"module",
+  "type": "module",
   "dependencies": {
+    "got": "^12.2.0",
     "request": "^2.88.2"
   },
   "keywords": [
