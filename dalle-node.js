@@ -27,33 +27,44 @@ export class Dalle {
           if (error) {
             console.log(error);
           } else {
-            console.log(response.statusCode, body);
             const taskId = body.id;
 
             const refreshIntervalId = setInterval(() => {
-                request.get(
-                    {
-                      url: this.url + '/' + taskId,
-                      headers: {
-                        Authorization: "Bearer " + this.bearerToken,
-                      },
-                      json: true,
-                    },
-                    (error, response, body) => {
-                      if (error) {
-                        console.log(error);
-                      } else if (body.status === "rejected") {
-                        clearInterval(refreshIntervalId);
-                        resolve(body.status_information);
-                      } else if (body.status === "succeeded") {
-                        const generations = body.generations;
-                        clearInterval(refreshIntervalId);
-                        resolve(generations.data);
-                      }
-                    }
-                  );
+              this.getTask(taskId).then(task => {
+                switch (task.status) {
+                  case "succeeded":
+                    clearInterval(refreshIntervalId);
+                    resolve(task.generations);
+                  case "rejected":
+                    clearInterval(refreshIntervalId);
+                    resolve(task.status_information);
+                  case "pending":
+                }
+              }).catch(error => {
+                console.log(error);
+              })
+            }, 2000);
+          }
+        }
+      );
+    });
+  }
 
-            }, 3000);
+  async getTask(taskId) {
+    return new Promise((resolve, reject) => {
+      request.get(
+        {
+          url: `${ this.url }/${ taskId }`,
+          headers: {
+            Authorization: "Bearer " + this.bearerToken,
+          },
+          json: true,
+        },
+        (error, response, body) => {
+          if (error) {
+            return reject(error)
+          } else {
+            return resolve(body)
           }
         }
       );
