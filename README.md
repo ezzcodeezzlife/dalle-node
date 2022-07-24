@@ -53,6 +53,52 @@ console.log(generations)
 ]
 ```
 
-Example [Nextjs Application](https://github.com/1998code/DALLE-2-App)
+## Functions
+
+### `constructor`
+
+```javascript
+import { Dalle } from "dalle-node";
+
+const dalle = new Dalle("sess-xxxxxxxxxxxxxxxxxxxxxxxxx"); // Bearer Token 
+```
+
+### `generate(prompt: string)`
+
+Generate Dall-e images using the prompt passed in.
+
+```javascript
+const generations = await dalle.generate("a cat driving a car");
+```
+
+Returns an array of generations.
+
+### `list({ limit: number, fromTs: number })`
+
+Get previous tasks.
+
+```javascript
+const last10Runs= await dalle.list({ limit: 10 });
+```
+
+```javascript
+const allRunsAfterTimestamp = await dalle.list({ fromTs: 1553456789 });
+```
+
+Returns an array of tasks. Note - what generate() returns is consider a single task. Each image inside a task is a "generation". The objects in the returned array will have a `prompt` property, a `generations` array, as well as other properties.
+
+### `getTask(taskId: string)`
+
+```javascript
+const task = await dalle.getTask("task-nERkiKsdjVCSZ50yD69qewID");
+```
+
+Returns a task object.
+
+# Examples
+
+[Nextjs Application](https://github.com/1998code/DALLE-2-App)
+
+# Other languages
 
 [Repo for the same thing as Python Package "ezzcodeezzlife/dalle2-in-python"](https://github.com/ezzcodeezzlife/dalle2-in-python)
