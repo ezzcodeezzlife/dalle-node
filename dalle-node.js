@@ -59,4 +59,51 @@ export class Dalle {
       );
     });
   }
+  
+  async list({ limit = 50, fromTs = 0 }) {
+    return new Promise((resolve, reject) => {
+      request.get(
+        {
+          url: `${ this.url }?limit=${ limit }${ fromTs ? `&from_ts=${ fromTs }` : '' }`,
+          headers: {
+            Authorization: "Bearer " + this.bearerToken,
+          },
+          json: true,
+        },
+        (error, response, body) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(response.statusCode, body);
+            const taskId = body.id;
+
+            const refreshIntervalId = setInterval(() => {
+                request.get(
+                    {
+                      url: this.url + '/' + taskId,
+                      headers: {
+                        Authorization: "Bearer " + this.bearerToken,
+                      },
+                      json: true,
+                    },
+                    (error, response, body) => {
+                      if (error) {
+                        console.log(error);
+                      } else if (body.status === "rejected") {
+                        clearInterval(refreshIntervalId);
+                        resolve(body.status_information);
+                      } else if (body.status === "succeeded") {
+                        const runs = body.data;
+                        clearInterval(refreshIntervalId);
+                        resolve(runs.body);
+                      }
+                    }
+                  );
+
+            }, 3000);
+          }
+        }
+      );
+    });
+  }
 }
