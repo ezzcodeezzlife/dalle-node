@@ -60,11 +60,11 @@ export class Dalle {
     });
   }
   
-  async list(limit = 50) {
+  async list({ limit = 50, fromTs = 0 }) {
     return new Promise((resolve, reject) => {
       request.get(
         {
-          url: `${ this.url }?limit=${ limit }`,
+          url: `${ this.url }?limit=${ limit }${ fromTs ? `&from_ts=${ fromTs }` : '' }`,
           headers: {
             Authorization: "Bearer " + this.bearerToken,
           },
