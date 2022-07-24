@@ -64,14 +64,11 @@ export class Dalle {
     return new Promise((resolve, reject) => {
       request.get(
         {
-          url: this.url,
+          url: `${ this.url }?limit=${ limit }`,
           headers: {
             Authorization: "Bearer " + this.bearerToken,
           },
           json: true,
-          body: {
-            limit,
-          },
         },
         (error, response, body) => {
           if (error) {
