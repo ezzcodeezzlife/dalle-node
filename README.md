@@ -95,6 +95,28 @@ const task = await dalle.getTask("task-nERkiKsdjVCSZ50yD69qewID");
 
 Returns a task object.
 
+### `getCredits()`
+
+```javascript
+const creditsSummary = await dalle.getCredits();
+const totalCreditsLeft = creditsSummary.aggregate_credits;
+```
+
+Returns an object with the following properties.
+
+```json
+{
+  "aggregate_credits": 180,
+  "next_grant_ts": 123456789,
+  "breakdown": {
+    "free": 0,
+    "grant_beta_tester": 65,
+    "paid_dalle_15_115": 115
+  },
+  "object": "credit_summary"
+}
+```
+
 # Examples
 
 [Nextjs Application](https://github.com/1998code/DALLE-2-App)
