@@ -90,7 +90,7 @@ Returns an array of tasks. Note - what generate() returns is consider a single t
 ### `getTask(taskId: string)`
 
 ```javascript
-const task = await dalle.getTask("task-nERkiKsdjVCSZ50yD69qewID");
+const task = await dalle.getTask("task-nERkiKsdjVCasdyD69qewID");
 ```
 
 Returns a task object.
