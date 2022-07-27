@@ -37,19 +37,7 @@ console.log(generations)
     prompt_id: 'prompt-2CtaLQsgUbJHHDoJQy9Lul3T',
     is_public: false
   },
-  {
-    id: 'generation-hZWt2Nasrx8R0tJjbaROfKVy',
-    object: 'generation',
-    created: 1553332711,
-    generation_type: 'ImageGeneration',
-    generation: {
-      image_path: 'https://openailabsprodscus.blob.core.windows.net/private/user-hadpVzldsfs28CwvEZYMUT/generations/generation...'
-    },
-    task_id: 'task-nERkiKhjasdSZ50yD69qewID',
-    prompt_id: 'prompt-2CtaLasdUbJHHfoJQy9Lul3T',
-    is_public: false
-  },
-  // 2 more ... 
+  // 3 more ... 
 ]
 ```
 
