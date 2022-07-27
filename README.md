@@ -105,6 +105,13 @@ Returns an object with the following properties.
 }
 ```
 
+To get the date + time that the free credits will refresh:
+
+```javascript
+const credits = await dalle.getCredits()
+console.log('Free credits refresh on:', new Date(credits.next_grant_ts * 1000).toLocaleString());
+```
+
 # Examples
 
 [Nextjs Application](https://github.com/1998code/DALLE-2-App)
