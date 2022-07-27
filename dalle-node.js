@@ -3,11 +3,11 @@ import got from 'got';
 export class Dalle {
   constructor(bearerToken) {
     this.bearerToken = bearerToken;
-    this.url = "https://labs.openai.com/api/labs/tasks";
+    this.url = "https://labs.openai.com/api/labs";
   }
 
   async generate(prompt) {
-    let task = await got.post(this.url, {
+    let task = await got.post(`${this.url}/tasks`, {
       json: {
         task_type: "text2im",
         prompt: {
@@ -38,7 +38,7 @@ export class Dalle {
   }
 
   async getTask(taskId) {
-    return await got.get(`${ this.url }/${ taskId }`, {
+    return await got.get(`${this.url}/tasks/${ taskId }`, {
       headers: {
         Authorization: "Bearer " + this.bearerToken,
       },
@@ -46,7 +46,15 @@ export class Dalle {
   }
   
   async list(options = { limit: 50, fromTs: 0 }) {
-    return await got.get(`${ this.url }?limit=${ options.limit }${ options.fromTs ? `&from_ts=${ options.fromTs }` : '' }`, {
+    return await got.get(`${this.url}/tasks?limit=${ options.limit }${ options.fromTs ? `&from_ts=${ options.fromTs }` : '' }`, {
+        headers: {
+          Authorization: "Bearer " + this.bearerToken,
+        },
+      }).json();
+  }
+  
+  async getCredits() {
+    return await got.get(`${ this.url }/billing/credit_summary`, {
         headers: {
           Authorization: "Bearer " + this.bearerToken,
         },
