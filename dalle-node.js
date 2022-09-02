@@ -1,5 +1,12 @@
 import got from 'got';
 
+export class DalleError extends Error {
+  constructor(response) {
+    super();
+    this.response = response;
+  }
+}
+
 export class Dalle {
   constructor(bearerToken) {
     this.bearerToken = bearerToken;
@@ -20,17 +27,17 @@ export class Dalle {
       }
     }).json();
 
-    return await new Promise(resolve => {
+    return await new Promise((resolve, reject) => {
       const refreshIntervalId = setInterval(async () => {
         task = await this.getTask(task.id)
 
         switch (task.status) {
           case "succeeded":
             clearInterval(refreshIntervalId);
-            return resolve(task.generations)
+            return resolve(task.generations);
           case "rejected":
             clearInterval(refreshIntervalId);
-            throw new Error(task);
+            return reject(new DalleError(task.status_information));
           case "pending":
         }
       }, 2000);
