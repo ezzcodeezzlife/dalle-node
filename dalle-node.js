@@ -27,21 +27,19 @@ export class Dalle {
       }
     }).json();
 
-    return await new Promise((resolve, reject) => {
-      const refreshIntervalId = setInterval(async () => {
-        task = await this.getTask(task.id)
+    const refreshIntervalId = setInterval(async () => {
+      task = await this.getTask(task.id)
 
-        switch (task.status) {
-          case "succeeded":
-            clearInterval(refreshIntervalId);
-            return resolve(task.generations);
-          case "rejected":
-            clearInterval(refreshIntervalId);
-            return reject(new DalleError(task.status_information));
-          case "pending":
-        }
-      }, 2000);
-    })
+      switch (task.status) {
+        case "succeeded":
+          clearInterval(refreshIntervalId);
+          return task.generations;
+        case "rejected":
+          clearInterval(refreshIntervalId);
+          return new DalleError(task.status_information);
+        case "pending":
+      }
+    }, 2000);
   }
 
   async getTask(taskId) {
