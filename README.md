@@ -18,9 +18,11 @@ import { Dalle } from "dalle-node";
 
 const dalle = new Dalle("sess-xxxxxxxxxxxxxxxxxxxxxxxxx"); // Bearer Token 
 
-const generations = await dalle.generate("a cat driving a car");
+(async () => {
+  const generations = await dalle.generate("a cat driving a car");
 
-console.log(generations)
+  console.log(generations)
+})();
 ```
 
 ```
