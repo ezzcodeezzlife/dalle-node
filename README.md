@@ -1,6 +1,5 @@
-# Usage
+# Setup
 
-## Setup
 1. Go to https://openai.com/dall-e-2/
 2. Create a OpenAI Account
 3. Go to https://labs.openai.com/
