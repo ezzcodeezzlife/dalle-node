@@ -1,12 +1,13 @@
-# Get Access
+# Usage
 
-[labs.openai.com/waitlist](https://labs.openai.com/waitlist)
-
-- Go to https://labs.openai.com/
-- Open Network Tab in Developer Tools
-- Type a promt and press "Generate"
-- Look for fetch to https://labs.openai.com/api/labs/tasks
-- In the request header look for authorization then get the Bearer Token
+## Setup
+1. Go to https://openai.com/dall-e-2/
+2. Create a OpenAI Account
+3. Go to https://labs.openai.com/
+4. Open the Network Tab in Developer Tools
+5. Type a prompt and press "Generate"
+6. Look for fetch to https://labs.openai.com/api/labs/tasks
+7. In the request header look for authorization then get the Bearer Token
 
 
 # Usage
